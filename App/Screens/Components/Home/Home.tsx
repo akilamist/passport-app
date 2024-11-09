@@ -7,10 +7,13 @@ import {
   IsAlertModal,
 } from '@CommonComponent';
 import { ButtonComponent } from '@SubComponents';
-import { compareAppVersions, getVersionName, openLink } from '@Utils/Helper';
+import { compareAppVersions, getVersionName, goToNextScreen, openLink } from '@Utils/Helper';
 import { useIsFocused } from '@react-navigation/native';
 import { alertData, isIOS, width } from '@Utils/Constant';
 import { AppContext } from '@AppContext';
+import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Route } from '../../../Routes/AppRoutes';
 
 const Home = () => {
   const { appTheme } = useContext(AppContext);
@@ -19,6 +22,7 @@ const Home = () => {
   let version = getVersionName();
   const alertDetails = alertData.updateVersion;
   const isFocused = useIsFocused();
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (isFocused) {
@@ -55,16 +59,19 @@ const Home = () => {
   };
 
   return (
-    <Layout title="Widgets" padding={20}>
-      <CustomText large>Home screen</CustomText>
-      <ButtonComponent
-        onPress={() => {
-          setShowModal(true);
-        }}
-        backColor={appTheme.themeColor}
-        title="Show Modal"
-        borderRadius={10}
-      />
+    <Layout title="MY PASSPORT SCAN" padding={20}>
+      <CustomText large>Click Scan to Get Started</CustomText>
+      <View style={{justifyContent:'center',marginTop:300}}>
+        <ButtonComponent
+          onPress={() => {
+            navigation.navigate(Route.PassportScanValidation)
+          }}
+          backColor={appTheme.themeColor}
+          title="Scan Passport"
+          borderRadius={10}
+          style={{width:300}}r
+        />
+      </View>
       <BottomModalContainer
         title="Modal"
         onClose={() => setShowModal(false)}

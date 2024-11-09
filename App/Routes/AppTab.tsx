@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, { useContext } from 'react';
-import { Image } from 'react-native';
+import { Image, Text } from 'react-native';
 import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
@@ -34,12 +34,6 @@ const TABS = [
     icon: AppImages.search,
     screen: Search,
     name: 'search',
-  },
-  {
-    title: tabs.UsersTab,
-    icon: AppImages.user,
-    screen: Users,
-    name: 'user',
   },
   {
     title: tabs.SettingsTab,
@@ -84,6 +78,16 @@ const AppTab = () => {
                         (focused && appTheme.themeColor) || appTheme.lightText,
                     }}
                   />
+                ),
+                tabBarLabel: ({ focused }) => (
+                  <Text
+                    style={{
+                      fontSize: 15, // Adjust font size here
+                      color: focused ? appTheme.themeColor : appTheme.lightText,
+                    }}
+                  >
+                    {tab.title}
+                  </Text>
                 ),
               };
             }}
