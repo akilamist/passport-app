@@ -30,7 +30,7 @@ const FaceCaptureScreen = ({route}) => {
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const [imageUri, setImageUri] = useState(null);
-  const { passNumber } = route.params;
+  const { passNumber } = route?.params;
 
   useEffect(() => {
     setImageUri(null);
@@ -103,7 +103,7 @@ const FaceCaptureScreen = ({route}) => {
 
   return (
     <Layout title={`SUCCESS`} padding={20}>
-      <CustomText large>{`YOUR PASSPORT NUMBER IS -- ${passNumber}`}</CustomText>
+      <CustomText large>{`YOUR PASSPORT NUMBER IS -- ${passNumber ? passNumber : 'Loading...' }`}</CustomText>
 
       <CustomText style={{marginTop:40,textAlign:'center'}} xxlarge>{`Capture Your Face`}</CustomText>
       <CustomText large>{`Align your face within the frame and ensure good lighting for best results`}</CustomText>

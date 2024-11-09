@@ -26,9 +26,6 @@ const PassportScanValidation = ({route}) => {
 
   useEffect(() => {
     setLoading(true)
-    // setTimeout(() => {
-    //   navigation.navigate(Route.FaceCaptureScreen);
-    // }, 3000);
     const validatePassport = async () => {
       // Fetch predefined passport image from Firebase and convert it to bytes
       const targetImageBytes =

@@ -34,7 +34,7 @@ const FaceScanValidation = ({ route }) => {
   
       // Set up a 20-second timeout
       const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Timeout')), 10000)
+        setTimeout(() => reject(new Error('Timeout')), 10000) 
       );
   
       try {
