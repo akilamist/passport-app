@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect , useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Route, Routes } from '@Routes/AppRoutes';
@@ -6,12 +6,14 @@ import { isLoggedIn } from '@Services/UserService';
 import { DeviceEventEmitter, EmitterSubscription } from 'react-native';
 import { onLogout } from '@Utils/Helper';
 import { Authentication } from '@Utils/Enums';
+import { AppContext } from '@AppContext';
 
 const Stack = createStackNavigator();
 
 const RootStack = () => {
   let isLogout: EmitterSubscription | null = null;
   const navigation = useNavigation();
+  const { appTheme } = useContext(AppContext);
 
   const isUserLogin = () => {
     const isUserLoggedIn = isLoggedIn();
@@ -34,14 +36,15 @@ const RootStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={isUserLogin()}
+      // initialRouteName={isUserLogin()}
+      initialRouteName={Route.HomeScreen}
       screenOptions={() => ({
         headerShown: true,
         cardOverlayEnabled: true,
         headerBackTitleVisible: false,
         presentation: 'card',
       })}>
-      {Routes.map(route => {
+      {Routes(appTheme).map(route => {
         return (
           <Stack.Screen
             name={route.name}
