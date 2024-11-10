@@ -50,14 +50,28 @@ const PassportScanValidation = ({route}) => {
         }else{
           Alert.alert(
             'Passport Not Found',
-            'Please re upload clear picture of your passport...',
+            'Please re-upload a clear picture of your passport...',
+            [
+              {
+                text: 'OK',
+                onPress: () => navigation.navigate(Route.HomeScreen), 
+              },
+            ],
+            { cancelable: false }
           );
         }
       } else {
         console.log('Passport number not found');
         Alert.alert(
           'Passport Not Found',
-          'Please re upload clear picture of your passport...',
+          'Please re-upload a clear picture of your passport...',
+          [
+            {
+              text: 'OK',
+              onPress: () => navigation.navigate(Route.HomeScreen), 
+            },
+          ],
+          { cancelable: false }
         );
       }
     };
