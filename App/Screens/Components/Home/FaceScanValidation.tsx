@@ -29,22 +29,35 @@ const FaceScanValidation = ({ route }) => {
     setLoading(true);
   
     const validatePassport = async () => {
-      // Predefined passport image URL
-      const targetImageBytes = 'https://live.staticflickr.com/8743/16716781314_bac613cf36_z.jpg';
+      //TODO - Add your sample face image URL here
+      const targetImageUrls = [
+        'https://live.staticflickr.com/8743/16716781314_bac613cf36_z.jpg',
+        'https://i.pinimg.com/736x/d8/49/3a/d8493ac925b717b4da02f545f7e99004.jpg',
+        'https://media.istockphoto.com/id/502897614/photo/sri-lankan-young-teenager-near-kandy-ceylon.jpg?s=612x612&w=0&k=20&c=c7zyJ6nUf5m3z9Mk5PPtYzkYVA52kwp3gQhajnPuQI4=',
+        // Add more URLs as needed
+      ];
   
       // Set up a 20-second timeout
       const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Timeout')), 10000) 
+        setTimeout(() => reject(new Error('Timeout')), 20000) 
       );
   
       try {
-        // Use Promise.race to race between compareImages and the timeout
+        // Use Promise.race to race between the timeout and the comparison loop
         const isMatch = await Promise.race([
-          compareImages(uploadedImageUri, targetImageBytes),
+          (async () => {
+            for (let targetImageUrl of targetImageUrls) {
+              const match = await compareImages(uploadedImageUri, targetImageUrl);
+              if (match) {
+                return true; // If any match is found, return true
+              }
+            }
+            return false; // No match found after comparing all images
+          })(),
           timeoutPromise
         ]);
   
-        // If compareImages resolves before the timeout, navigate with the result
+        // Navigate with the result based on whether a match was found
         navigation.navigate(Route.FinalResultScreen, {
           status: isMatch,
         });
