@@ -42,8 +42,8 @@ const PassportScanValidation = ({route}) => {
 
       if (passportNumber) {
         console.log("Passport Number:", passportNumber);
-        //TODO check passport number from DB - Future implementation
-        if(passportNumber == 'N8061371' || passportNumber == 'N9011103'){
+        const myPredefinedPassportNumbers = ['N8061371', 'N9011103', 'N3841678']; //TODO Add New passport numbers here
+        if(myPredefinedPassportNumbers.includes(passportNumber)){
           navigation.navigate(Route.FaceCaptureScreen, {
             passNumber: passportNumber,
           });
